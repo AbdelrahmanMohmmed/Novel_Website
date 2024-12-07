@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+} */
+
+.navlist {
+    background: -webkit-linear-gradient(left, #003366,#004080,#0059b3
+    , #0073e6);
+    overflow: hidden;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navlist a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.navlist a:hover {
+    background-color: #0073e6;
+    color: white;
+    border-radius: 4px;
+}
+
+.search {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.search input[type="text"] {
+    padding: 6px;
+    margin-right: 10px;
+    border: none;
+    font-size: 17px;
+    border-radius: 4px;
+}
+
+
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.novel-table {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+}
+
+.novel-item {
+    width: 200px;
+    text-align: center;
+    color: black;
+}
+
+.novel-item a {
+    color: black;
+}
+
+.novel-item a:hover {
+    color: #0073e6;
+}
+
+.novel-item img {
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
