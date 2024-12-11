@@ -32,7 +32,7 @@
   <section class="user-info">
     <img src="https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781524879761/the-great-gatsby-9781524879761_hr.jpg" alt="User Profile Picture" class="profile-picture">
     <h1 id="user-name">John Doe</h1>
-    <p id="user-bio">This is a short bio about the user. Feel free to add more details here!</p>
+    <!-- <p id="user-bio">This is a short bio about the user. Feel free to add more details here!</p> -->
   </section>
 
   <!-- My Novels Section -->
@@ -48,15 +48,16 @@
   <div id="add-novel-form" class="modal hidden">
     <form>
       <h2>Add New Novel</h2>
-      <!-- <label for="novel-name">Name:</label> -->
+      <br><br><label for="novel-name">Name:</label>
       <input type="text" id="novel-name" placeholder="Name" required>
-      <!-- <label for="novel-picture">Picture:</label> -->
+      <br><br><label for="novel-picture">Picture:</label>
       <input type="file" id="novel-picture" accept="image/*" placeholder="Picture" required>
-      <!-- <label for="novel-author">Author:</label> -->
+      <br><br><label for="novel-author">Author:</label>
       <input type="text" id="novel-author" placeholder="Author" required>
-      <!-- <label for="novel-description">Description:</label> -->
-      <textarea id="novel-description" rows="4" placeholder="Description" required></textarea>
-      <button type="submit">Submit</button>
+      <br><br><label for="novel-description">Description:</label>
+      <br><textarea id="novel-description" rows="4" placeholder="Description" required></textarea>
+      <br><textarea id="chapter_txt" rows="10" cols="40" placeholder="chapter_txt" required></textarea>
+      <br><button type="submit">Submit</button>
       <button type="button" id="cancel-form-btn">Cancel</button>
     </form>
   </div>
