@@ -38,37 +38,71 @@ mysqli_stmt_close($stmt);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $username; ?>'s Profile</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <script src="js/profile.js" defer></script>
 </head>
 
 <body>
-    <h1>Welcome, <?php echo $username; ?>!</h1>
-    <p>Email: <?php echo $email; ?></p>
-    <p>Number of Novels: <?php echo count($novels); ?></p>
+    <!-- Navigation Bar -->
+    <div class="navlist">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="contactUs.html">Contact Us</a>
+        <div class="search">
+            <form action="">
+                <input type="text" placeholder="Search Novels" name="search">
+            </form>
+        </div>
+    </div>
 
-    <h2>Your Novels</h2>
-    <ul>
-        <?php foreach ($novels as $novel) : ?>
-            <li>
-            <strong><?php echo htmlspecialchars($novel['title']); ?></strong>
-            <p>Chapters: <?php echo $novel['chapter_count']; ?></p>
-            <a href="view_chapters.php?novel_id=<?php echo $novel['novel_id']; ?>">View Chapters</a> |
-            <a href="add_chapter.php?novel_id=<?php echo $novel['novel_id']; ?>">Add New Chapter</a>
-            </li>
+    <!-- User Info Section -->
+    <section class="user-info">
+        <img src="https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781524879761/the-great-gatsby-9781524879761_hr.jpg" alt="User Profile Picture" class="profile-picture">
+        <h1 id="user-name"><?php echo htmlspecialchars($username); ?></h1>
+        <p id="user-bio">Email: <?php echo htmlspecialchars($email); ?></p>
+    </section>
 
-        <?php endforeach; ?>
-    </ul>
+    <!-- My Novels Section -->
+    <section id="my-novel" class="novel-section">
+        <h2>Your Novels</h2>
+        <div class="novel-list" id="novel-list">
+            <?php foreach ($novels as $novel) : ?>
+                <div class="novel-item">
+                    <strong><?php echo htmlspecialchars($novel['title']); ?></strong>
+                    <p>Chapters: <?php echo $novel['chapter_count']; ?></p>
+                    <a href="view_chapters.php?novel_id=<?php echo $novel['novel_id']; ?>">View Chapters</a> |
+                    <a href="add_chapter.php?novel_id=<?php echo $novel['novel_id']; ?>">Add New Chapter</a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <button id="add-novel-btn">Add Novel</button>
+    </section>
 
-    <h2>Add a New Novel</h2>
-    <form action="insert_novel.php" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" required>
-        <label for="description">Description:</label>
-        <textarea name="description" id="description"></textarea>
-        <label for="photo">Photo URL:</label>
-        <input type="text" name="photo" id="photo">
-        <input type="hidden" name="author" value="<?php echo $username; ?>">
-        <button type="submit">Add Novel</button>
-    </form>
+    <!-- Add Novel Form Modal -->
+    <div id="add-novel-form" class="modal hidden">
+    <form action="insert_novel.php" method="POST" enctype="multipart/form-data">
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" required>
+
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea>
+
+    <label for="photo">Photo URL:</label>
+    <input type="text" name="photo" id="photo" placeholder="Paste image URL here" required>
+
+    <!-- Hidden input for author (set from the session) -->
+    <input type="hidden" name="author" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
+
+    <button type="submit">Add Novel</button>
+</form>
+
+    </div>
+
+    <footer>
+        <div>This Website is made by College students as a project for their Web Programming course.<br>
+            Contact Us<br>
+            01228774305</div>
+    </footer>
 </body>
 
 </html>

@@ -2,30 +2,35 @@
 session_start();
 include("database.php");
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.html");
-    exit;
-}
-
+// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get the form data
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $photo = $_POST['photo'];
-    $author = $_SESSION['username'];
+    $author = $_POST['author'];
+    $photo_url = $_POST['photo'];  // The URL from the form input (not a file upload)
 
-    $query = "INSERT INTO Novels (title, author, description, photo) VALUES (?, ?, ?, ?)";
-    $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "ssss", $title, $author, $description, $photo);
-
-    if (mysqli_stmt_execute($stmt)) {
-        header("Location: profile.php");
+    // Validate the URL (optional)
+    if (!filter_var($photo_url, FILTER_VALIDATE_URL)) {
+        echo "Invalid photo URL.";
         exit;
-    } else {
-        echo "Error: " . mysqli_error($conn);
     }
 
-    mysqli_stmt_close($stmt);
-}
+    // Insert the novel details into the database
+    $stmt = mysqli_prepare($conn, "INSERT INTO Novels (title, description, author, photo) VALUES (?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "ssss", $title, $description, $author, $photo_url);
+    $result = mysqli_stmt_execute($stmt);
+    
+    // Check if the insertion was successful
+    if ($result) {
+        echo "Novel added successfully!";
+    } else {
+        echo "Error adding novel.";
+    }
 
-mysqli_close($conn);
+    // Close the statement
+    mysqli_stmt_close($stmt);
+} else {
+    echo "Invalid request method.";
+}
 ?>

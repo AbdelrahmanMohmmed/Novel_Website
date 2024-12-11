@@ -14,18 +14,18 @@ $username = $_SESSION['username']; // Current user's username
 // Check if a search query is provided
 $search_query = isset($_GET['query']) ? trim($_GET['query']) : "";
 
-// Fetch novels from other users (filtering by search query if provided)
+// Fetch novels from the current user and other users (filtering by search query if provided)
 if ($search_query !== "") {
     $novels_query = "SELECT novel_id, title, description, photo FROM Novels 
-                     WHERE author != ? AND title LIKE ? LIMIT 6";
+                     WHERE (author = ? OR author != ?) AND title LIKE ? LIMIT 20";
     $stmt = mysqli_prepare($conn, $novels_query);
     $like_query = '%' . $search_query . '%';
-    mysqli_stmt_bind_param($stmt, "ss", $username, $like_query);
+    mysqli_stmt_bind_param($stmt, "sss", $username, $username, $like_query);
 } else {
     $novels_query = "SELECT novel_id, title, description, photo FROM Novels 
-                     WHERE author != ? LIMIT 6";
+                     WHERE author = ? OR author != ? LIMIT 20";
     $stmt = mysqli_prepare($conn, $novels_query);
-    mysqli_stmt_bind_param($stmt, "s", $username);
+    mysqli_stmt_bind_param($stmt, "ss", $username, $username);
 }
 
 mysqli_stmt_execute($stmt);
@@ -60,12 +60,17 @@ mysqli_stmt_close($stmt);
         </div>
     </div>
     <main>
-        <h2>Other Users' Novels</h2>
+        <h2>Novels</h2>
         <div id="novel-table" class="novel-table">
             <?php if (!empty($novels)): ?>
                 <?php foreach ($novels as $novel): ?>
                     <div class="novel-card">
-                        <img src="<?php echo htmlspecialchars($novel['photo']); ?>" alt="Novel Cover">
+                        <!-- Display the photo if it exists -->
+                        <?php if (!empty($novel['photo'])): ?>
+                            <img src="<?php echo htmlspecialchars($novel['photo']); ?>" alt="Novel Cover" style="max-width: 200px; height: auto;">
+                            <?php else: ?>
+                            <img src="default_image.jpg" alt="No Cover Available">
+                        <?php endif; ?>
                         <h3><?php echo htmlspecialchars($novel['title']); ?></h3>
                         <p><?php echo htmlspecialchars($novel['description']); ?></p>
                         <a href="chapters.php?novel_id=<?php echo $novel['novel_id']; ?>">View Chapters</a>

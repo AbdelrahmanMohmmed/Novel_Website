@@ -5,21 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novel Details</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" defer></script>
 </head>
 <body>
-    <nav>
-        <a href="home.html">Home</a>
-    </nav>
+    <div class="navlist">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+        <a href="contactUs.html">Contact Us</a>
+        <div class="search">
+            <form action="">
+                <input type="text" placeholder="Search Novels" name="search">
+            </form>
+        </div>
+    </div>
     <main>
-        <h1>Novel Title</h1>
-        <p>Author: Author Name</p>
-        <p>Published Date: YYYY-MM-DD</p>
+        <h1 id="novel-title">Novel Title</h1>
+        <p id="novel-author">Author: </p>
+        <p id="novel-date">Published Date: </p>
         <h3>Chapters</h3>
-        <ul>
-            <li><a href="chapter.html?id=1&chapter=1">Chapter 1</a></li>
-            <li><a href="chapter.html?id=1&chapter=2">Chapter 2</a></li>
-            <!-- More chapters dynamically -->
-        </ul>
+        <ul id="chapters-list"></ul>
     </main>
+    <footer>
+        <div>This Website is made by College students as a project for their  Web Programming course<br>
+            Contact Us<br>
+            01228774305</div>
+    </footer>
 </body>
 </html>

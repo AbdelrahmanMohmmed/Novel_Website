@@ -115,8 +115,8 @@ if (isset($_POST['comment_text']) && !empty($_POST['comment_text'])) {
         <h2><?php echo htmlspecialchars($novel['title']); ?> - Chapters</h2>
         <p><strong>Description:</strong> <?php echo htmlspecialchars($novel['description']); ?></p>
         <?php if ($novel['photo']): ?>
-            <img src="<?php echo htmlspecialchars($novel['photo']); ?>" alt="Novel Cover">
-        <?php endif; ?>
+            <img src="<?php echo htmlspecialchars($novel['photo']); ?>" alt="Novel Cover" style="max-width: 200px; height: auto;">
+            <?php endif; ?>
 
         <h3>Chapter <?php echo $chapter_id; ?>: <?php echo htmlspecialchars($chapters[$current_chapter_index]['title']); ?></h3>
         <p><strong>Content:</strong> <?php echo nl2br(htmlspecialchars($chapters[$current_chapter_index]['content'])); ?></p>
