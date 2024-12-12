@@ -45,9 +45,9 @@ mysqli_stmt_close($stmt);
 <body>
     <!-- Navigation Bar -->
     <div class="navlist">
-        <a href="index.html">Home</a>
-        <a href="profile.html">Profile</a>
-        <a href="contactUs.html">Contact Us</a>
+        <a href="index.php">Home</a>
+        <a href="profile.php">Profile</a>
+        <a href="about.php">Contact Us</a>
         <div class="search">
             <form action="">
                 <input type="text" placeholder="Search Novels" name="search">
