@@ -18,6 +18,39 @@ if (!$novel_id) {
     header("Location: index.php");
     exit;
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like'])) {
+    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Example user ID, change as needed
+
+    if ($user_id) {
+        // Check if the user has already liked the novel
+        $check_like_query = "SELECT * FROM Likes WHERE novel_id = ? AND user_id = ?";
+        $stmt = mysqli_prepare($conn, $check_like_query);
+        mysqli_stmt_bind_param($stmt, "ii", $novel_id, $user_id);
+        mysqli_stmt_execute($stmt);
+        $like_check_result = mysqli_stmt_get_result($stmt);
+        $already_liked = mysqli_fetch_assoc($like_check_result);
+        mysqli_stmt_close($stmt);
+
+        if (!$already_liked) {
+            // Insert a new like
+            $insert_like_query = "INSERT INTO Likes (novel_id, user_id) VALUES (?, ?)";
+            $stmt = mysqli_prepare($conn, $insert_like_query);
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "ii", $novel_id, $user_id);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+
+                // Refresh the page to update the like count
+                header("Location: novel.php?id=$novel_id");
+                exit;
+            } else {
+                die("Failed to insert like: " . mysqli_error($conn));
+            }
+        }
+    } else {
+        echo "<p>Please log in to like this novel.</p>";
+    }
+}
 
 // Fetch novel details
 $novel_query = "SELECT title, author, created_at AS date, description FROM Novels WHERE novel_id = ?";
@@ -53,6 +86,49 @@ while ($chapter = mysqli_fetch_assoc($chapters_result)) {
     $chapters[] = $chapter;
 }
 mysqli_stmt_close($stmt);
+
+// Handle comment submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
+    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1; // Example user ID, change according to session logic
+    $content = mysqli_real_escape_string($conn, $_POST['comment']);
+
+    $comment_query = "INSERT INTO Comments (novel_id, user_id, content) VALUES (?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $comment_query);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "iis", $novel_id, $user_id, $content);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    } else {
+        die("Failed to insert comment: " . mysqli_error($conn));
+    }
+}
+
+// Fetch comments for the selected novel
+$comments_query = "SELECT c.content, c.created_at, u.username FROM Comments c 
+                   LEFT JOIN Users u ON c.user_id = u.user_id 
+                   WHERE c.novel_id = ? ORDER BY c.created_at DESC";
+$stmt = mysqli_prepare($conn, $comments_query);
+mysqli_stmt_bind_param($stmt, "i", $novel_id);
+mysqli_stmt_execute($stmt);
+$comments_result = mysqli_stmt_get_result($stmt);
+$comments = [];
+while ($comment = mysqli_fetch_assoc($comments_result)) {
+    $comments[] = $comment;
+}
+// Fetch like count
+$like_query = "SELECT COUNT(*) AS like_count FROM Likes WHERE novel_id = ?";
+$stmt = mysqli_prepare($conn, $like_query);
+if (!$stmt) {
+    die("Query preparation failed: " . mysqli_error($conn));
+}
+mysqli_stmt_bind_param($stmt, "i", $novel_id);
+mysqli_stmt_execute($stmt);
+$like_result = mysqli_stmt_get_result($stmt);
+$like_data = mysqli_fetch_assoc($like_result);
+$like_count = $like_data['like_count'];
+
+mysqli_stmt_close($stmt);
+
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +150,7 @@ mysqli_stmt_close($stmt);
             </form>
         </div>
     </div>
+    
     <main>
         <h1><?php echo htmlspecialchars($novel['title']); ?></h1>
         <p><strong>Author:</strong> <?php echo htmlspecialchars($novel['author']); ?></p>
@@ -90,7 +167,28 @@ mysqli_stmt_close($stmt);
                 </li>
             <?php endforeach; ?>
         </ul>
+        <p><strong>Likes:</strong> <span id="like-count"><?php echo $like_count; ?></span></p>
+<form method="POST" action="">
+    <button type="submit" name="like">Like</button>
+</form>
+
+        <h3>Comments</h3>
+        <form method="POST" action="">
+            <textarea name="comment" placeholder="Write a comment..." required></textarea><br>
+            <button type="submit">Add Comment</button>
+        </form>
+
+        <div id="comments-section">
+            <?php foreach ($comments as $comment): ?>
+                <div class="comment">
+                    <p><strong><?php echo htmlspecialchars($comment['username']); ?>:</strong> <?php echo nl2br(htmlspecialchars($comment['content'])); ?></p>
+                    <p><em>Posted on: <?php echo htmlspecialchars($comment['created_at']); ?></em></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
     </main>
+    
     <footer>
         <div>This Website is made by College students as a project for their Web Programming course<br>
             Contact Us<br>
@@ -101,6 +199,7 @@ mysqli_stmt_close($stmt);
 
 <?php
 // Free the result sets
+mysqli_free_result($comments_result);
 mysqli_free_result($chapters_result);
 mysqli_free_result($novel_result);
 

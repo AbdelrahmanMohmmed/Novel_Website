@@ -48,6 +48,7 @@ mysqli_stmt_close($stmt);
         <a href="index.php">Home</a>
         <a href="profile.php">Profile</a>
         <a href="about.php">Contact Us</a>
+        <a href="login.php">Logout</a>
         <div class="search">
             <form action="">
                 <input type="text" placeholder="Search Novels" name="search">
@@ -80,22 +81,21 @@ mysqli_stmt_close($stmt);
 
     <!-- Add Novel Form Modal -->
     <div id="add-novel-form" class="modal hidden">
-    <form action="insert_novel.php" method="POST" enctype="multipart/form-data">
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title" required>
+        <form action="insert_novel.php" method="POST" enctype="multipart/form-data">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" required>
 
-    <label for="description">Description:</label>
-    <textarea name="description" id="description"></textarea>
+            <label for="description">Description:</label>
+            <textarea name="description" id="description"></textarea>
 
-    <label for="photo">Photo URL:</label>
-    <input type="text" name="photo" id="photo" placeholder="Paste image URL here" required>
+            <label for="photo">Photo URL:</label>
+            <input type="text" name="photo" id="photo" placeholder="Paste image URL here" required>
 
-    <!-- Hidden input for author (set from the session) -->
-    <input type="hidden" name="author" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
+            <!-- Hidden input for author (set from the session) -->
+            <input type="hidden" name="author" value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
 
-    <button type="submit">Add Novel</button>
-</form>
-
+            <button type="submit">Add Novel</button>
+        </form>
     </div>
 
     <footer>
