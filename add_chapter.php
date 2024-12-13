@@ -37,21 +37,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<?php
-$novel_id = $_GET['novel_id'];
-?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Chapter</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Chapter</h2>
+        <?php $novel_id = $_GET['novel_id']; ?>
+        <form action="add_chapter.php" method="post" class="add-chapter-form">
+            <input type="hidden" name="novel_id" value="<?= $novel_id; ?>">
+            
+            <label for="chapter_number">Chapter Number:</label>
+            <input type="number" id="chapter_number" name="chapter_number" required><br>
 
-<h2>Add Chapter</h2>
-<form action="add_chapter.php" method="post">
-    <input type="hidden" name="novel_id" value="<?= $novel_id; ?>">
-    <label for="chapter_number">Chapter Number:</label>
-    <input type="number" id="chapter_number" name="chapter_number" required><br>
+            <label for="title">Chapter Title:</label>
+            <input type="text" id="title" name="title" required><br>
 
-    <label for="title">Chapter Title:</label>
-    <input type="text" id="title" name="title" required><br>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" required></textarea><br>
 
-    <label for="content">Content:</label>
-    <textarea id="content" name="content" required></textarea><br>
-
-    <button type="submit">Add Chapter</button>
-</form>
+            <button type="submit" class="submit-button">Add Chapter</button>
+        </form>
+    </div>
+</body>
+</html>

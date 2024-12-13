@@ -52,9 +52,9 @@ mysqli_stmt_close($stmt);
         <h1>Novel Library</h1>
     </nav> -->
     <div class="navlist">
-        <a href="index.html">Home</a>
-        <a href="profile.html">Profile</a>
-        <a href="contactUs.html">Contact Us</a>
+        <a href="index.php">Home</a>
+        <a href="profile.php">Profile</a>
+        <a href="contactUs.php">Contact Us</a>
         <div class="search">
         <form method="GET" action="index.php">
                 <input type="text" placeholder="Search Novels" name="query" value="<?php echo htmlspecialchars($search_query); ?>">
