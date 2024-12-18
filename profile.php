@@ -38,22 +38,18 @@ mysqli_stmt_close($stmt);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $username; ?>'s Profile</title>
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/profile_1.css">
     <script src="js/profile.js" defer></script>
 </head>
 
 <body>
+
     <!-- Navigation Bar -->
     <div class="navlist">
         <a href="index.php">Home</a>
         <a href="profile.php">Profile</a>
         <a href="about.php">Contact Us</a>
         <a href="login.php">Logout</a>
-        <div class="search">
-            <form action="">
-                <input type="text" placeholder="Search Novels" name="search">
-            </form>
-        </div>
     </div>
 
     <!-- User Info Section -->
@@ -103,6 +99,22 @@ mysqli_stmt_close($stmt);
             Contact Us<br>
             01228774305</div>
     </footer>
+    <script>// Example function to show the modal
+function showModal() {
+    document.getElementById('add-novel-form').classList.add('visible');
+}
+
+// Example function to hide the modal
+function hideModal() {
+    document.getElementById('add-novel-form').classList.remove('visible');
+}
+
+// Example: Add event listener to show the modal when the 'Add Novel' button is clicked
+document.getElementById('add-novel-btn').addEventListener('click', showModal);
+
+// Example: Add event listener to close the modal (if using a close button)
+document.querySelector('#add-novel-form .close-btn').addEventListener('click', hideModal);
+</script>
 </body>
 
 </html>

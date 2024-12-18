@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-    <link rel="stylesheet" href="css/contactUs.css">
+    <link rel="stylesheet" href="css/contactUs_0.css">
 </head>
 
 <body>
+    <div class="navlist">
+        <a href="index.php">Home</a>
+        <a href="profile.php">Profile</a>
+        <a href="about.php">Contact Us</a>
+    </div>
     <div class="contact-container">
         <h2>Contact Us</h2>
         <?php

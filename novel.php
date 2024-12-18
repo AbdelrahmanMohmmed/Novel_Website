@@ -137,18 +137,13 @@ mysqli_stmt_close($stmt);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($novel['title']); ?></title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/novel_0.css">
 </head>
 <body>
     <div class="navlist">
         <a href="index.php">Home</a>
         <a href="profile.php">Profile</a>
-        <a href="contactUs.php">Contact Us</a>
-        <div class="search">
-            <form action="">
-                <input type="text" placeholder="Search Novels" name="search">
-            </form>
-        </div>
+        <a href="about.php">Contact Us</a>
     </div>
     
     <main>

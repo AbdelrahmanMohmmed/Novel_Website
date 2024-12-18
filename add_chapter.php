@@ -43,9 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Chapter</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/add_chapter_0.css">
 </head>
 <body>
+    <div class="navlist">
+        <a href="index.php">Home</a>
+        <a href="profile.php">Profile</a>
+        <a href="about.php">Contact Us</a>
+    </div>
     <div class="form-container">
         <h2>Add Chapter</h2>
         <?php $novel_id = $_GET['novel_id']; ?>

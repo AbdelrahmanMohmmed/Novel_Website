@@ -44,8 +44,8 @@ mysqli_stmt_close($stmt);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novel Library</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/app.js" defer></script>
+    <link rel="stylesheet" href="css/styles_1.css">
+    <!-- <script src="js/app.js" defer></script> -->
 </head>
 <body>
     <!-- <nav>
@@ -54,7 +54,8 @@ mysqli_stmt_close($stmt);
     <div class="navlist">
         <a href="index.php">Home</a>
         <a href="profile.php">Profile</a>
-        <a href="contactUs.php">Contact Us</a>
+        <a href="about.php">Contact Us</a>
+        <a href="login.php">Logout</a>
         <div class="search">
         <form method="GET" action="index.php">
                 <input type="text" placeholder="Search Novels" name="query" value="<?php echo htmlspecialchars($search_query); ?>">

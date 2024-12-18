@@ -53,18 +53,15 @@ mysqli_stmt_close($stmt);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter: <?php echo htmlspecialchars($chapter['title']); ?></title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style_0.css">
 </head>
 <body>
+    <!-- <style>body{background-color: black;}</style> -->
+
     <div class="navlist">
         <a href="index.php">Home</a>
         <a href="profile.php">Profile</a>
         <a href="about.php">Contact Us</a>
-        <div class="search">
-            <form action="">
-                <input type="text" placeholder="Search Novels" name="search">
-            </form>
-        </div>
     </div>
     <main>
         <h1><?php echo htmlspecialchars($novel['title']); ?></h1>
